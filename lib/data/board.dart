@@ -3,15 +3,16 @@ import './fields_data.dart';
 class Board {
   bool turn = false;
   String insertPool = 'X';
-  List<FieldData> boardFields;
+  Map boardFields = new Map();
 
   Board() {
     clearBoard();
   }
 
-  Iterable<FieldData> getBoard() sync* {
+  void getBoard() {
     for (int i = 1; i <= 9; i++) {
-      yield FieldData(id: i, pool: '');
+      this.boardFields[i] = FieldData(id: i, pool: '');
+      //yield FieldData(id: i, pool: '');
     }
   }
 
@@ -37,6 +38,6 @@ class Board {
   }
 
   void clearBoard() {
-    this.boardFields = getBoard().toList();
+    getBoard();
   }
 }

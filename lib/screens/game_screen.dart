@@ -25,15 +25,15 @@ class _GameScreenState extends State<GameScreen> {
       body: Center(
         child: GridView(
           padding: const EdgeInsets.all(10),
-          children: board.boardFields
-              .map((fieldInfo) => FieldItem(
-                    fieldInfo.id,
-                    fieldInfo.pool,
+          children: board.boardFields.keys
+              .map((key) => FieldItem(
+                    board.boardFields[key].id,
+                    board.boardFields[key].pool,
                     () {
-                      if (fieldInfo.pool.isEmpty) {
+                      if (board.boardFields[key].pool.isEmpty) {
                         setState(
                           () {
-                            fieldInfo.poolSetter(board.insertPool);
+                            board.boardFields[key].poolSetter(board.insertPool);
                             // board.checkWIn();
                             board.changeTurn();
                           },
