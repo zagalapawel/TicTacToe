@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../data/fields_data.dart';
 import '../widgets/field_item.dart';
 import '../data/board.dart';
 
@@ -34,7 +33,7 @@ class _GameScreenState extends State<GameScreen> {
                         setState(
                           () {
                             board.boardFields[key].poolSetter(board.insertPool);
-                            // board.checkWIn();
+                            board.checkWin();
                             board.changeTurn();
                           },
                         );
