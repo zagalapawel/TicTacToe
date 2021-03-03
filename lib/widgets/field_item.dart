@@ -13,6 +13,7 @@ class FieldItem extends StatelessWidget {
       onTap: selectHandler,
       child: Container(
         decoration: BoxDecoration(
+          color: Colors.red,
           border: Border.all(
             width: 2.0,
             color: Colors.yellow,

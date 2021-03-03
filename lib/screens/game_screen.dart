@@ -10,9 +10,15 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   Board board = Board();
-  // _GameScreenState() {
-  //   this.board = Board();
-  // }
+
+  alert(String text) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        content: Text(text),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,9 @@ class _GameScreenState extends State<GameScreen> {
       appBar: AppBar(
         title: Text('Tic Tac Toe'),
       ),
-      body: Center(
+      body: Container(
+        alignment: Alignment.center,
+        color: Colors.blue,
         child: GridView(
           padding: const EdgeInsets.all(10),
           children: board.boardFields.keys
@@ -33,7 +41,7 @@ class _GameScreenState extends State<GameScreen> {
                         setState(
                           () {
                             board.boardFields[key].poolSetter(board.insertPool);
-                            board.checkWin();
+                            board.checkWin(alert);
                             board.changeTurn();
                           },
                         );
@@ -50,5 +58,6 @@ class _GameScreenState extends State<GameScreen> {
         ),
       ),
     );
+    // );
   }
 }
