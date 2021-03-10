@@ -12,24 +12,62 @@ class _GameScreenState extends State<GameScreen> {
   Board board = Board();
 
   alert(String text) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        content: Text(text),
-      ),
-    );
+    // showDialog(
+    //   context: context,
+    //   builder: (_) => AlertDialog(
+    //     elevation: 5,
+    //     shape: RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.all(Radius.circular(500.0)),
+    //     ),
+    //     title: Text('Game Over!'),
+    //     content: Text('$text'),
+    //   ),
+    // );
+    showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+          return Transform(
+            transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+            child: Opacity(
+              opacity: a1.value,
+              child: AlertDialog(
+                shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                title: Text('Game Over!'),
+                content: Text('$text'),
+              ),
+            ),
+          );
+        },
+        transitionDuration: Duration(milliseconds: 1000),
+        barrierDismissible: true,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {
+          return;
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[100],
       appBar: AppBar(
-        title: Text('Tic Tac Toe'),
+        backgroundColor: Colors.yellow,
+        title: Text('${board.insertPool}\'s turn'),
       ),
       body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.yellow,
+            Colors.blue,
+            Colors.green,
+          ],
+        )),
         alignment: Alignment.center,
-        color: Colors.blue,
         child: GridView(
           padding: const EdgeInsets.all(10),
           children: board.boardFields.keys
@@ -52,8 +90,6 @@ class _GameScreenState extends State<GameScreen> {
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 150,
             childAspectRatio: 3 / 3,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
           ),
         ),
       ),

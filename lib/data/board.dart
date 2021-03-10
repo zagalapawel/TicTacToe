@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import './fields_data.dart';
 
 class Board {
@@ -6,15 +5,23 @@ class Board {
   bool turn = false;
   String insertPool = 'X';
   Map boardFields = new Map();
+  int checkDraw = 0;
 
   Board() {
     clearBoard();
   }
 
   void clearBoard() {
+    checkDraw = 0;
     for (int i = 1; i <= 9; i++) {
       this.boardFields[i] = FieldData(id: i, pool: '');
     }
+  }
+
+  void groupFunc(Function alert, int i) {
+    i == 30 ? alert('tie') : alert('${boardFields[i].pool} wins!');
+    clearBoard();
+    return;
   }
 
   bool checkEquals(String pool1, String pool2, String pool3) {
@@ -24,45 +31,48 @@ class Board {
   void checkWin(Function alert) {
     // ->
     for (int i = 1; i <= 7; i += 3) {
-      if (!checkEquals(boardFields[i].pool, boardFields[i + 1].pool,
-          boardFields[i + 2].pool)) continue;
+      if (!checkEquals(
+        boardFields[i].pool,
+        boardFields[i + 1].pool,
+        boardFields[i + 2].pool,
+      )) continue;
 
-      alert(boardFields[i].pool);
-      clearBoard();
-      return;
+      groupFunc(alert, i);
     }
     // \/
     for (int i = 1; i <= 3; i++) {
-      if (!checkEquals(boardFields[i].pool, boardFields[i + 3].pool,
-          boardFields[i + 6].pool)) continue;
+      if (!checkEquals(
+        boardFields[i].pool,
+        boardFields[i + 3].pool,
+        boardFields[i + 6].pool,
+      )) continue;
 
-      alert(boardFields[i].pool);
-      clearBoard();
-      return;
+      groupFunc(alert, i);
     }
     // >\
     if (checkEquals(
-        boardFields[1].pool, boardFields[5].pool, boardFields[9].pool)) {
-      alert(boardFields[1].pool);
-      clearBoard();
-      return;
+      boardFields[1].pool,
+      boardFields[5].pool,
+      boardFields[9].pool,
+    )) {
+      groupFunc(alert, 1);
     }
     // /<
     if (checkEquals(
-        boardFields[7].pool, boardFields[5].pool, boardFields[3].pool)) {
-      alert(boardFields[7].pool);
-      clearBoard();
-      return;
+      boardFields[7].pool,
+      boardFields[5].pool,
+      boardFields[3].pool,
+    )) {
+      groupFunc(alert, 7);
     }
-    // if (winner == null) {
-    //   winner = 'tie!';
-    // }
-    // print(winner);
 
-    // alert();
+    if (checkDraw == 9) {
+      groupFunc(alert, 30);
+    }
   }
 
   void changeTurn() {
+    checkDraw++;
     insertPool = turn ? insertPool = 'X' : insertPool = 'O';
     turn = !turn;
   }
