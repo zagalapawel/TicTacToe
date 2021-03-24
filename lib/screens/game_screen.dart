@@ -4,6 +4,7 @@ import '../widgets/field_item.dart';
 import '../data/board.dart';
 
 class GameScreen extends StatefulWidget {
+  static const routeName = '/game-screen';
   @override
   _GameScreenState createState() => _GameScreenState();
 }

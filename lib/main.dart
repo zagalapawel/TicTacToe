@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tictactoe/screens/start_screen.dart';
 
 import './screens/game_screen.dart';
 
@@ -14,7 +15,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.yellow,
       ),
-      home: GameScreen(),
+      home: StartScreen(),
+      routes: {
+        GameScreen.routeName: (ctx) => GameScreen(),
+        StartScreen.routeName: (ctx) => StartScreen(),
+      },
     );
   }
 }
