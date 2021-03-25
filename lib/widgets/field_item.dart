@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tictactoe/screens/start_screen.dart';
 
 class FieldItem extends StatelessWidget {
   final int id;
@@ -20,8 +21,11 @@ class FieldItem extends StatelessWidget {
           ),
         ),
         child: FittedBox(
-          child: Text(pool),
-        ),
+            child: pool == ''
+                ? Text(pool)
+                : Image(
+                    image: pool == 'X' ? StartScreen.poolX : StartScreen.poolO,
+                  )),
       ),
     );
   }

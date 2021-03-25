@@ -5,6 +5,7 @@ import '../data/board.dart';
 
 class GameScreen extends StatefulWidget {
   static const routeName = '/game-screen';
+
   @override
   _GameScreenState createState() => _GameScreenState();
 }
@@ -13,17 +14,6 @@ class _GameScreenState extends State<GameScreen> {
   Board board = Board();
 
   alert(String text) {
-    // showDialog(
-    //   context: context,
-    //   builder: (_) => AlertDialog(
-    //     elevation: 5,
-    //     shape: RoundedRectangleBorder(
-    //       borderRadius: BorderRadius.all(Radius.circular(500.0)),
-    //     ),
-    //     title: Text('Game Over!'),
-    //     content: Text('$text'),
-    //   ),
-    // );
     showGeneralDialog(
         barrierColor: Colors.black.withOpacity(0.5),
         transitionBuilder: (context, a1, a2, widget) {
@@ -52,10 +42,13 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final player = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellow,
         title: Text('${board.insertPool}\'s turn'),
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         decoration: BoxDecoration(

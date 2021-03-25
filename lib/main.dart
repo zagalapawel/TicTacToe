@@ -23,3 +23,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+//DODAĆ PRZEKAZANIE WYBORU
+//ZROBIĆ KONKUTER
