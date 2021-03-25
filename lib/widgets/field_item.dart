@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tictactoe/screens/start_screen.dart';
+import '../screens/start_screen.dart';
 
 class FieldItem extends StatelessWidget {
   final int id;
