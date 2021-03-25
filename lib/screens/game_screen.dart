@@ -73,8 +73,8 @@ class _GameScreenState extends State<GameScreen> {
                         setState(
                           () {
                             board.boardFields[key].poolSetter(board.insertPool);
-                            board.checkWin(alert);
                             board.changeTurn();
+                            board.checkWin(alert);
                           },
                         );
                       }
@@ -88,6 +88,5 @@ class _GameScreenState extends State<GameScreen> {
         ),
       ),
     );
-    // );
   }
 }
