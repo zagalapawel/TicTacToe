@@ -21,11 +21,12 @@ class FieldItem extends StatelessWidget {
           ),
         ),
         child: FittedBox(
-            child: pool == ''
-                ? Text(pool)
-                : Image(
-                    image: pool == 'X' ? StartScreen.poolX : StartScreen.poolO,
-                  )),
+          child: pool == ''
+              ? Text(pool)
+              : Image(
+                  image: pool == 'X' ? StartScreen.poolX : StartScreen.poolO,
+                ),
+        ),
       ),
     );
   }
