@@ -43,6 +43,7 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool compInPlay = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellow,
@@ -74,8 +75,16 @@ class _GameScreenState extends State<GameScreen> {
                       setState(
                         () {
                           board.boardFields[key].poolSetter(board.insertPool);
+                          board.checkWin();
+                          board.showAlertAndClearBoard(alert);
                           board.changeTurn();
-                          board.checkWin(alert);
+
+                          if (compInPlay == true) {
+                            board.runComp();
+                            board.checkWin();
+                            board.showAlertAndClearBoard(alert);
+                            board.changeTurn();
+                          }
                         },
                       );
                     }

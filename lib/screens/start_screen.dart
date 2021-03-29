@@ -18,7 +18,7 @@ class StartScreen extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(top: 50, bottom: 50),
                 child: Text(
-                  'X or O?\n     Who start',
+                  'X or O?\n     Who start\n\n\nvs Player       vs Comp',
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -32,7 +32,8 @@ class StartScreen extends StatelessWidget {
                 Spacer(),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed(GameScreen.routeName);
+                    Navigator.of(context)
+                        .pushNamed(GameScreen.routeName, arguments: false);
                   },
                   child: Image(
                     image: poolX,
@@ -43,7 +44,8 @@ class StartScreen extends StatelessWidget {
                 Spacer(),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed(GameScreen.routeName);
+                    Navigator.of(context)
+                        .pushNamed(GameScreen.routeName, arguments: true);
                   },
                   child: Image(
                     image: poolO,
