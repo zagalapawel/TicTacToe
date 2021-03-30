@@ -47,7 +47,7 @@ class _GameScreenState extends State<GameScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellow,
-        title: Text('${board.insertPool}\'s turn'),
+        title: Text('${board.currentPlayer}\'s turn'),
         automaticallyImplyLeading: false,
       ),
       body: Container(
@@ -74,14 +74,18 @@ class _GameScreenState extends State<GameScreen> {
                     if (board.boardFields[key].pool.isEmpty) {
                       setState(
                         () {
-                          board.boardFields[key].poolSetter(board.insertPool);
-                          board.checkWin();
+                          board.boardFields[key]
+                              .poolSetter(board.currentPlayer);
+
                           board.showAlertAndClearBoard(alert);
                           board.changeTurn();
 
                           if (compInPlay == true) {
+                            board.boardFields[key]
+                                .poolSetter(board.currentPlayer);
+                            board.showAlertAndClearBoard(alert);
+                            board.changeTurn();
                             board.runComp();
-                            board.checkWin();
                             board.showAlertAndClearBoard(alert);
                             board.changeTurn();
                           }
