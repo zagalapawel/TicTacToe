@@ -8,6 +8,7 @@ class Board {
   String compPool = 'O';
   String playerPool = 'X';
   String winner;
+
   Map boardFields = new Map();
   int checkDraw = 0;
 
@@ -28,6 +29,7 @@ class Board {
     if (winner != null) {
       winner == 'tie' ? alert('tie') : alert('$winner wins!');
       clearBoard();
+
       return;
     }
   }
@@ -80,6 +82,7 @@ class Board {
 
   void changeTurn() {
     checkDraw++;
+    print(checkDraw);
     if (currentPlayer == 'X') {
       currentPlayer = 'O';
     } else {
@@ -89,10 +92,8 @@ class Board {
 
   // COMPUTER ////////////////////////////////////////////////
 
-// DO POPRAWKI CAŁA AKCJA Z KOMPUTEREM
-
   void runComp() {
-    if (checkDraw != 9) {
+    if (checkDraw != 8) {
       if (currentPlayer == 'O') {
         bestMove();
       }
@@ -100,18 +101,18 @@ class Board {
   }
 
   var scores = {
-    'X': 10,
-    'O': -10,
+    'X': -1,
+    'O': 1,
     'tie': 0,
   };
 
   void bestMove() {
-    int bestScore = -1000;
+    int bestScore = -100;
     int move;
     for (int i = 1; i <= 9; i++) {
       if (boardFields[i].pool == '') {
         boardFields[i].pool = compPool;
-        int score = minimax(boardFields, 0, false);
+        int score = minimax(boardFields, false);
         boardFields[i].pool = '';
         if (score > bestScore) {
           bestScore = score;
@@ -122,33 +123,35 @@ class Board {
     boardFields[move].pool = compPool;
   }
 
-  int minimax(board, depth, isMaximizing) {
+  int minimax(board, isMaximizing) {
     String result = checkWin();
     if (result != null) {
       return scores[result];
     }
 
     if (isMaximizing) {
-      int bestScore = -1000;
+      int bestScore = -100;
       for (int i = 1; i <= 9; i++) {
         if (board[i].pool == '') {
           board[i].pool = compPool;
-          var score = minimax(board, depth + 1, false);
+          var score = minimax(board, false);
           board[i].pool = '';
           bestScore = max(score, bestScore);
         }
       }
+      winner = null;
       return bestScore;
     } else {
-      int bestScore = 1000;
+      int bestScore = 100;
       for (int i = 1; i <= 9; i++) {
         if (board[i].pool == '') {
           board[i].pool = playerPool;
-          var score = minimax(board, depth + 1, true);
+          var score = minimax(board, true);
           board[i].pool = '';
           bestScore = min(score, bestScore);
         }
       }
+      winner = null;
       return bestScore;
     }
   }

@@ -74,21 +74,22 @@ class _GameScreenState extends State<GameScreen> {
                     if (board.boardFields[key].pool.isEmpty) {
                       setState(
                         () {
-                          board.boardFields[key]
-                              .poolSetter(board.currentPlayer);
-
-                          board.showAlertAndClearBoard(alert);
-                          board.changeTurn();
-
-                          if (compInPlay == true) {
+                          if (!compInPlay) {
                             board.boardFields[key]
                                 .poolSetter(board.currentPlayer);
                             board.showAlertAndClearBoard(alert);
                             board.changeTurn();
-                            board.runComp();
-                            board.showAlertAndClearBoard(alert);
-                            board.changeTurn();
+                            return;
                           }
+                          if (board.currentPlayer == 'O') {
+                            board.runComp();
+                          }
+                          board.boardFields[key]
+                              .poolSetter(board.currentPlayer);
+                          board.changeTurn();
+                          board.runComp();
+                          board.changeTurn();
+                          board.showAlertAndClearBoard(alert);
                         },
                       );
                     }
