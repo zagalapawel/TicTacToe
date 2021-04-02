@@ -93,7 +93,7 @@ class Board {
   // COMPUTER ////////////////////////////////////////////////
 
   void runComp() {
-    if (checkDraw != 8) {
+    if (checkDraw < 8) {
       if (currentPlayer == 'O') {
         bestMove();
       }
@@ -113,6 +113,7 @@ class Board {
       if (boardFields[i].pool == '') {
         boardFields[i].pool = compPool;
         int score = minimax(boardFields, false);
+        print('i: $i + score: $score');
         boardFields[i].pool = '';
         if (score > bestScore) {
           bestScore = score;

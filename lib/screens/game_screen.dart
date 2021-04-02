@@ -81,12 +81,10 @@ class _GameScreenState extends State<GameScreen> {
                             board.changeTurn();
                             return;
                           }
-                          if (board.currentPlayer == 'O') {
-                            board.runComp();
-                          }
                           board.boardFields[key]
                               .poolSetter(board.currentPlayer);
                           board.changeTurn();
+                          board.showAlertAndClearBoard(alert);
                           board.runComp();
                           board.changeTurn();
                           board.showAlertAndClearBoard(alert);
