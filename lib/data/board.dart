@@ -29,8 +29,7 @@ class Board {
     if (winner != null) {
       winner == 'tie' ? alert('tie') : alert('$winner wins!');
       clearBoard();
-
-      return;
+      // return;
     }
   }
 
@@ -82,7 +81,7 @@ class Board {
 
   void changeTurn() {
     checkDraw++;
-    print(checkDraw);
+    print('checkDraw : $checkDraw');
     if (currentPlayer == 'X') {
       currentPlayer = 'O';
     } else {
@@ -93,10 +92,9 @@ class Board {
   // COMPUTER ////////////////////////////////////////////////
 
   void runComp() {
-    if (checkDraw < 8) {
-      if (currentPlayer == 'O') {
-        bestMove();
-      }
+    if (checkDraw < 9 && currentPlayer == 'O') {
+      bestMove();
+      changeTurn();
     }
   }
 
@@ -113,6 +111,7 @@ class Board {
       if (boardFields[i].pool == '') {
         boardFields[i].pool = compPool;
         int score = minimax(boardFields, false);
+        winner = null;
         print('i: $i + score: $score');
         boardFields[i].pool = '';
         if (score > bestScore) {
@@ -122,6 +121,7 @@ class Board {
       }
     }
     boardFields[move].pool = compPool;
+    print('ruch : $move');
   }
 
   int minimax(board, isMaximizing) {
@@ -140,7 +140,6 @@ class Board {
           bestScore = max(score, bestScore);
         }
       }
-      winner = null;
       return bestScore;
     } else {
       int bestScore = 100;
@@ -152,7 +151,6 @@ class Board {
           bestScore = min(score, bestScore);
         }
       }
-      winner = null;
       return bestScore;
     }
   }
