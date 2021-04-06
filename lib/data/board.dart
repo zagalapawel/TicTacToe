@@ -10,14 +10,12 @@ class Board {
   String winner;
 
   Map boardFields = new Map();
-  int checkDraw = 0;
 
   Board() {
     clearBoard();
   }
 
   void clearBoard() {
-    checkDraw = 0;
     winner = null;
     for (int i = 1; i <= 9; i++) {
       boardFields[i] = FieldData(id: i, pool: '');
@@ -73,26 +71,28 @@ class Board {
       winner = boardFields[7].pool;
     }
     // tie
-    if (checkDraw == 9) {
+    if (boardFields[1].pool != '' &&
+        boardFields[2].pool != '' &&
+        boardFields[3].pool != '' &&
+        boardFields[4].pool != '' &&
+        boardFields[5].pool != '' &&
+        boardFields[6].pool != '' &&
+        boardFields[7].pool != '' &&
+        boardFields[8].pool != '' &&
+        boardFields[9].pool != '') {
       winner = 'tie';
     }
     return winner;
   }
 
   void changeTurn() {
-    checkDraw++;
-    print('checkDraw : $checkDraw');
-    if (currentPlayer == 'X') {
-      currentPlayer = 'O';
-    } else {
-      currentPlayer = 'X';
-    }
+    currentPlayer == 'X' ? currentPlayer = 'O' : currentPlayer = 'X';
   }
 
   // COMPUTER ////////////////////////////////////////////////
 
   void runComp() {
-    if (checkDraw < 9 && currentPlayer == 'O') {
+    if (currentPlayer == 'O') {
       bestMove();
       changeTurn();
     }

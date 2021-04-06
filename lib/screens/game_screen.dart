@@ -78,7 +78,7 @@ class _GameScreenState extends State<GameScreen> {
                             board.boardFields[key]
                                 .poolSetter(board.currentPlayer);
                             board.showAlertAndClearBoard(alert);
-                            // board.changeTurn();
+                            board.changeTurn();
                             return;
                           }
                           board.boardFields[key]
