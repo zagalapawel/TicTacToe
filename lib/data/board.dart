@@ -44,6 +44,7 @@ class Board {
         boardFields[i + 2].pool,
       )) continue;
       winner = boardFields[i].pool;
+      return winner;
     }
     // \/
     for (int i = 1; i <= 3; i++) {
@@ -53,6 +54,7 @@ class Board {
         boardFields[i + 6].pool,
       )) continue;
       winner = boardFields[i].pool;
+      return winner;
     }
     // >\
     if (checkIfPoolsAreEquals(
@@ -61,6 +63,7 @@ class Board {
       boardFields[9].pool,
     )) {
       winner = boardFields[1].pool;
+      return winner;
     }
     // /<
     if (checkIfPoolsAreEquals(
@@ -69,6 +72,7 @@ class Board {
       boardFields[3].pool,
     )) {
       winner = boardFields[7].pool;
+      return winner;
     }
     // tie
     if (boardFields[1].pool != '' &&
@@ -81,6 +85,7 @@ class Board {
         boardFields[8].pool != '' &&
         boardFields[9].pool != '') {
       winner = 'tie';
+      return winner;
     }
     return winner;
   }
@@ -110,7 +115,7 @@ class Board {
     for (int i = 1; i <= 9; i++) {
       if (boardFields[i].pool == '') {
         boardFields[i].pool = compPool;
-        int score = minimax(boardFields, false);
+        int score = minimax(boardFields, 0, false);
         winner = null;
         print('i: $i + score: $score');
         boardFields[i].pool = '';
@@ -124,7 +129,8 @@ class Board {
     print('ruch : $move');
   }
 
-  int minimax(board, isMaximizing) {
+  int minimax(board, depth, isMaximizing) {
+    depth++;
     String result = checkWin();
     if (result != null) {
       return scores[result];
@@ -135,7 +141,7 @@ class Board {
       for (int i = 1; i <= 9; i++) {
         if (board[i].pool == '') {
           board[i].pool = compPool;
-          var score = minimax(board, false);
+          var score = minimax(board, depth, false);
           board[i].pool = '';
           bestScore = max(score, bestScore);
         }
@@ -146,7 +152,7 @@ class Board {
       for (int i = 1; i <= 9; i++) {
         if (board[i].pool == '') {
           board[i].pool = playerPool;
-          var score = minimax(board, true);
+          var score = minimax(board, depth, true);
           board[i].pool = '';
           bestScore = min(score, bestScore);
         }
