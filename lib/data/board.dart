@@ -8,6 +8,8 @@ class Board {
   String compPool = 'O';
   String playerPool = 'X';
   String winner;
+  int maxCompWinDepth = 0;
+  List compWinsArray = [];
 
   Map boardFields = new Map();
 
@@ -112,36 +114,40 @@ class Board {
   void bestMove() {
     int bestScore = -100;
     int move;
+
     for (int i = 1; i <= 9; i++) {
       if (boardFields[i].pool == '') {
+        maxCompWinDepth = 0;
         boardFields[i].pool = compPool;
-        int score = minimax(boardFields, 0, false);
+        int score = minimax(boardFields, false);
+        print('i: $i + score: $score + maxCompWinDepth: $maxCompWinDepth');
         winner = null;
-        print('i: $i + score: $score');
         boardFields[i].pool = '';
+        compWinsArray.add([i, score, maxCompWinDepth]);
         if (score > bestScore) {
           bestScore = score;
           move = i;
         }
       }
     }
+    print(compWinsArray);
     boardFields[move].pool = compPool;
     print('ruch : $move');
   }
 
-  int minimax(board, depth, isMaximizing) {
-    depth++;
+  int minimax(board, isMaximizing) {
     String result = checkWin();
     if (result != null) {
       return scores[result];
     }
 
     if (isMaximizing) {
+      maxCompWinDepth++;
       int bestScore = -100;
       for (int i = 1; i <= 9; i++) {
         if (board[i].pool == '') {
           board[i].pool = compPool;
-          var score = minimax(board, depth, false);
+          var score = minimax(board, false);
           board[i].pool = '';
           bestScore = max(score, bestScore);
         }
@@ -152,7 +158,7 @@ class Board {
       for (int i = 1; i <= 9; i++) {
         if (board[i].pool == '') {
           board[i].pool = playerPool;
-          var score = minimax(board, depth, true);
+          var score = minimax(board, true);
           board[i].pool = '';
           bestScore = min(score, bestScore);
         }

@@ -9,54 +9,55 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Tic! Tac! Toe!'),
-        ),
-        body: Column(
-          children: [
-            Center(
-              child: Padding(
-                padding: EdgeInsets.only(top: 50, bottom: 50),
-                child: Text(
-                  'X or O?\n     Who start\n\n\nvs Player       vs Comp',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                  ),
+      appBar: AppBar(
+        title: Text('Tic! Tac! Toe!'),
+      ),
+      body: Column(
+        children: [
+          Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: 50, bottom: 50),
+              child: Text(
+                'X or O?\n     Who start\n\n\nvs Player       vs Comp',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
                 ),
               ),
             ),
-            Row(
-              children: [
-                Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(GameScreen.routeName, arguments: false);
-                  },
-                  child: Image(
-                    image: poolX,
-                    width: 150,
-                    height: 150,
-                  ),
+          ),
+          Row(
+            children: [
+              Spacer(),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(GameScreen.routeName, arguments: false);
+                },
+                child: Image(
+                  image: poolX,
+                  width: 150,
+                  height: 150,
                 ),
-                Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(GameScreen.routeName, arguments: true);
-                  },
-                  child: Image(
-                    image: poolO,
-                    width: 150,
-                    height: 150,
-                  ),
+              ),
+              Spacer(),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(GameScreen.routeName, arguments: true);
+                },
+                child: Image(
+                  image: poolO,
+                  width: 150,
+                  height: 150,
                 ),
-                Spacer(),
-              ],
-            )
-          ],
-        ));
+              ),
+              Spacer(),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
