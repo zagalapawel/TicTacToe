@@ -114,15 +114,19 @@ class Board {
   void bestMove() {
     int bestScore = -100;
     int move;
+    int minDepth = 10;
 
     for (int i = 1; i <= 9; i++) {
       if (boardFields[i].pool == '') {
         maxCompWinDepth = 0;
         boardFields[i].pool = compPool;
         int score = minimax(boardFields, false);
-        print('i: $i + score: $score + maxCompWinDepth: $maxCompWinDepth');
         winner = null;
         boardFields[i].pool = '';
+        print('i: $i + score: $score + maxCompWinDepth: $maxCompWinDepth');
+        if (score == 1 && maxCompWinDepth < minDepth) {
+          minDepth = maxCompWinDepth;
+        }
         compWinsArray.add([i, score, maxCompWinDepth]);
         if (score > bestScore) {
           bestScore = score;
@@ -130,9 +134,23 @@ class Board {
         }
       }
     }
-    print(compWinsArray);
+    // print('compWinsArray: $compWinsArray');
+    pickBestPool(compWinsArray);
     boardFields[move].pool = compPool;
     print('ruch : $move');
+  }
+
+  int pickBestPool(List pools) {
+    int move;
+    List<int> depths = [];
+    print('pools: $pools');
+    for (int i = 0; i < pools.length; i++) {
+      depths.add(pools[i][2]);
+    }
+    print('depths: $depths');
+    move = depths.reduce(min);
+
+    return move;
   }
 
   int minimax(board, isMaximizing) {
