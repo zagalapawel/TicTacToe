@@ -38,6 +38,7 @@ class Board {
   }
 
   String checkWin() {
+    winner = null;
     // ->
     for (int i = 1; i <= 7; i += 3) {
       if (!checkIfPoolsAreEquals(
@@ -99,10 +100,10 @@ class Board {
   // COMPUTER ////////////////////////////////////////////////
 
   void runComp() {
-    if (currentPlayer == 'O') {
-      bestMove();
-      changeTurn();
-    }
+    // if (currentPlayer == 'O') {
+    bestMove();
+    changeTurn();
+    // }
   }
 
   var scores = {
@@ -114,29 +115,29 @@ class Board {
   int pickBestPool(List pools) {
     print(pools);
 
-    int move = pools[0][0];
+    var move = pools[0];
     int highestScore = pools[0][1];
     int lowestDepth = pools[0][2];
     int currentDepth;
-    int bestMove;
+    var bestMove = [];
 
     for (int i = 0; i < pools.length; i++) {
       print(pools[i]);
       if (highestScore <= pools[i][1]) {
-        move = pools[i][0];
+        move = pools[i];
         highestScore = pools[i][1];
         currentDepth = pools[i][2];
 
-        if (currentDepth < lowestDepth) {
+        if (pools[i][1] == highestScore || currentDepth < lowestDepth) {
           lowestDepth = currentDepth;
-          bestMove = pools[i][0];
+          bestMove = pools[i];
         }
       }
     }
-    print('bestPoolMove: $move');
-    print('bestMove: $bestMove');
-    return bestMove != null ? bestMove : move;
-    // return move;
+    print('bestPoolMove: ${move[0]}');
+    print('bestMove: ${bestMove[0]}');
+    print('return: ${(bestMove != null) ? bestMove[0] : move[0]}');
+    return bestMove != null ? bestMove[0] : move[0];
   }
 
   void bestMove() {
@@ -173,7 +174,7 @@ class Board {
 
     if (isMaximizing) {
       maxCompWinDepth++;
-      int bestScore = -100;
+      int bestScore = -10;
       for (int i = 1; i <= 9; i++) {
         if (board[i].pool == '') {
           board[i].pool = compPool;
@@ -184,7 +185,7 @@ class Board {
       }
       return bestScore;
     } else {
-      int bestScore = 100;
+      int bestScore = 10;
       for (int i = 1; i <= 9; i++) {
         if (board[i].pool == '') {
           board[i].pool = playerPool;
