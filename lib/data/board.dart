@@ -118,6 +118,7 @@ class Board {
     int highestScore = pools[0][1];
     int lowestDepth = pools[0][2];
     int currentDepth;
+    int bestMove;
 
     for (int i = 0; i < pools.length; i++) {
       print(pools[i]);
@@ -128,12 +129,14 @@ class Board {
 
         if (currentDepth < lowestDepth) {
           lowestDepth = currentDepth;
-          move = pools[i][0];
+          bestMove = pools[i][0];
         }
       }
     }
     print('bestPoolMove: $move');
-    return move;
+    print('bestMove: $bestMove');
+    return bestMove != null ? bestMove : move;
+    // return move;
   }
 
   void bestMove() {
