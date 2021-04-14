@@ -111,10 +111,35 @@ class Board {
     'tie': 0,
   };
 
+  int pickBestPool(List pools) {
+    print(pools);
+
+    int move = pools[0][0];
+    int highestScore = pools[0][1];
+    int lowestDepth = pools[0][2];
+    int currentDepth;
+
+    for (int i = 0; i < pools.length; i++) {
+      print(pools[i]);
+      if (highestScore <= pools[i][1]) {
+        move = pools[i][0];
+        highestScore = pools[i][1];
+        currentDepth = pools[i][2];
+
+        if (currentDepth < lowestDepth) {
+          lowestDepth = currentDepth;
+          move = pools[i][0];
+        }
+      }
+    }
+    print('bestPoolMove: $move');
+    return move;
+  }
+
   void bestMove() {
-    int bestScore = -100;
-    int move;
+    int move = 0;
     int minDepth = 10;
+    compWinsArray = [];
 
     for (int i = 1; i <= 9; i++) {
       if (boardFields[i].pool == '') {
@@ -128,33 +153,17 @@ class Board {
           minDepth = maxCompWinDepth;
         }
         compWinsArray.add([i, score, maxCompWinDepth]);
-        if (score > bestScore) {
-          bestScore = score;
-          move = i;
-        }
       }
     }
-    // print('compWinsArray: $compWinsArray');
-    pickBestPool(compWinsArray);
+
+    move = pickBestPool(compWinsArray);
     boardFields[move].pool = compPool;
     print('ruch : $move');
   }
 
-  int pickBestPool(List pools) {
-    int move;
-    List<int> depths = [];
-    print('pools: $pools');
-    for (int i = 0; i < pools.length; i++) {
-      depths.add(pools[i][2]);
-    }
-    print('depths: $depths');
-    move = depths.reduce(min);
-
-    return move;
-  }
-
   int minimax(board, isMaximizing) {
     String result = checkWin();
+
     if (result != null) {
       return scores[result];
     }

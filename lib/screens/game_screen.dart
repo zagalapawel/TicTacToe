@@ -86,7 +86,6 @@ class _GameScreenState extends State<GameScreen> {
                           board.showAlertAndClearBoard(alert);
                           board.changeTurn();
                           board.runComp();
-                          // board.changeTurn();
                           board.showAlertAndClearBoard(alert);
                         },
                       );
