@@ -100,10 +100,22 @@ class Board {
   // COMPUTER ////////////////////////////////////////////////
 
   void runComp() {
-    // if (currentPlayer == 'O') {
-    bestMove();
+    if (boardFields[1].pool == '' &&
+        boardFields[2].pool == '' &&
+        boardFields[3].pool == '' &&
+        boardFields[4].pool == '' &&
+        boardFields[5].pool == '' &&
+        boardFields[6].pool == '' &&
+        boardFields[7].pool == '' &&
+        boardFields[8].pool == '' &&
+        boardFields[9].pool == '') {
+      Random rnd = new Random();
+      boardFields[1 + rnd.nextInt(9 - 1)].pool = compPool;
+    } else {
+      bestMove();
+    }
+
     changeTurn();
-    // }
   }
 
   var scores = {
