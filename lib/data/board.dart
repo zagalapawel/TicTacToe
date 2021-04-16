@@ -29,7 +29,6 @@ class Board {
     if (winner != null) {
       winner == 'tie' ? alert('tie') : alert('$winner wins!');
       clearBoard();
-      // return;
     }
   }
 

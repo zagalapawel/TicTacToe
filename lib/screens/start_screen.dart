@@ -18,7 +18,7 @@ class StartScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(top: 50, bottom: 50),
               child: Text(
-                'X or O?\n     Who start\n\n\nvs Player       vs Comp',
+                'X or O?\n     Who do you play with?',
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
@@ -35,10 +35,17 @@ class StartScreen extends StatelessWidget {
                   Navigator.of(context)
                       .pushNamed(GameScreen.routeName, arguments: false);
                 },
-                child: Image(
-                  image: poolX,
-                  width: 150,
-                  height: 150,
+                child: Column(
+                  children: [
+                    Text('Player\n',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
+                    Image(
+                      image: poolX,
+                      width: 150,
+                      height: 150,
+                    ),
+                  ],
                 ),
               ),
               Spacer(),
@@ -47,10 +54,17 @@ class StartScreen extends StatelessWidget {
                   Navigator.of(context)
                       .pushNamed(GameScreen.routeName, arguments: true);
                 },
-                child: Image(
-                  image: poolO,
-                  width: 150,
-                  height: 150,
+                child: Column(
+                  children: [
+                    Text('Comp\n',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
+                    Image(
+                      image: poolO,
+                      width: 150,
+                      height: 150,
+                    ),
+                  ],
                 ),
               ),
               Spacer(),
